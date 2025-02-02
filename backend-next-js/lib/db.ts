@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const MONGOURI = process.env.MONGODB_URL;
 
-const connect = async () => {
+export const connect = async () => {
     try {
         const connectionState = mongoose.connection.readyState;
 
@@ -14,11 +14,13 @@ const connect = async () => {
         }
         else {
             mongoose.connect(MONGOURI!, {
-                dbName: "workout",
-                bufferCommands: false,
+                dbName: "nextrestapi",
+                // bufferCommands: false,
             })
         }
     } catch (error) {
         console.log(error)
     }
 }
+
+
