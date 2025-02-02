@@ -1,6 +1,8 @@
 import { connect } from "@/lib/db"
 import User from "@/lib/modals/user";
+import { Types } from "mongoose";
 import { NextResponse } from "next/server"
+import { useId } from "react";
 
 export const GET = async () => {
     await connect();
@@ -25,5 +27,28 @@ export const POST = async (request: Request) => {
         })
     } catch (error) {
         return new NextResponse("Error in User Creation" + error, { status: 500 })
+    }
+}
+
+const ObjectIdType = require("mongoose").Types.ObjectId
+
+export const PATCH = async (req: Request) => {
+    try {
+        const body = await req.json();
+        const { userId, userName } = body;
+        await connect();
+        if (!useId || !userName) {
+            return new NextResponse(JSON.stringify("Error Provie ID/UserName"), {
+                status: 400
+            })
+        }
+        if(!Types.ObjectId.isValid(userId)){
+            return new NextResponse(JSON.stringify("Invalid ID"), {
+                status: 400
+            })
+        }
+        //  const Updated=await User.findOneAndUpdate()
+    } catch (error) {
+
     }
 }
