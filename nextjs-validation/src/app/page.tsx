@@ -1,9 +1,14 @@
-import Image from "next/image";
-
+"use client";
 export default function Home() {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+  };
   return (
     <div className=" p-10 rounded-xl bg-teal-400 min-w-[500px]">
-      <form action="" className="flex flex-col gap-6">
+      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         <div className="grid grid-cols-[100px,auto] gap-4 items-center">
           <label htmlFor="firstName" className="font-medium">
             First Name :
