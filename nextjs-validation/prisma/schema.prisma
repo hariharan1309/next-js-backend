@@ -13,12 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-modal User{
-  id: String @id @default(auto()) @map("_id") @bd.ObjectId
-  firstName: String
-  lastName: String
-  email: String @unique
-  phone: String?
-  address: String?
-  createdAt: DateTime @default(now())
+model User{
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  firstName   String
+  lastName  String
+  email   String @unique
+  phone   String?
+  address   String?
+  createdAt   DateTime @default(now())
 }
