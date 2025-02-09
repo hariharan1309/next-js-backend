@@ -1,10 +1,18 @@
 "use client";
+
+import { userValidation } from "@/utils/UserValidation";
+
 export default function Home() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     console.log(data);
+    const validation = userValidation.safeParse(data);
+    if (!validation.success) {
+      console.log(validation.error.flatten().fieldErrors);
+      return;
+    }
   };
   return (
     <div className=" p-10 rounded-xl bg-teal-400 min-w-[500px]">
