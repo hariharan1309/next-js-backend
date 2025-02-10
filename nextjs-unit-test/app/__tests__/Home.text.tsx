@@ -20,3 +20,29 @@ test(" Object Checking", () => {
 test("Hariharan is a Loser", () => {
   expect("Loser").toMatch(/os/);
 });
+
+const sampleFun = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Hello");
+    }, 2000);
+  });
+};
+
+test("Testing the async function testing", async () => {
+  const resp = await sampleFun();
+  expect(resp).toEqual("Hello");
+});
+
+// Combinng more Unit Tests
+
+describe("This is the Combination of Multiple Unit Tests that it async", () => {
+  test("Testing the async function testing", async () => {
+    const resp = await sampleFun();
+    expect(resp).toEqual("Hello");
+  });
+  test("Testing the async function testing", async () => {
+    const resp = await sampleFun();
+    expect(resp).not.toEqual("frbhrfrf");
+  });
+});
