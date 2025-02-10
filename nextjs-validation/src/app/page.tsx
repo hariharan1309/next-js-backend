@@ -1,7 +1,8 @@
 "use client";
 
 import { userValidation } from "@/utils/UserValidation";
-import { useState } from "react";
+import { useActionState, useState } from "react";
+import { saveUser } from "../../actions/userActions";
 
 export default function Home() {
   const [errors, setErrors] = useState<any>({
@@ -11,16 +12,30 @@ export default function Home() {
     phone: [""],
     address: [""],
   });
+  const [state, formAction] = useActionState(saveUser, {
+    error: false,
+    success: false,
+  }); // use manage the state and values for server actions
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    console.log(data);
+    // console.log(data);
     const validation = userValidation.safeParse(data);
     if (!validation.success) {
       console.log(validation.error.flatten().fieldErrors);
       setErrors(validation.error?.flatten().fieldErrors);
       return;
+    } else {
+      setErrors({
+        firstName: [""],
+        lastName: [""],
+        email: [""],
+        phone: [""],
+        address: [""],
+      });
+      formAction({ formData }); // passing the formdata to server action
     }
   };
   return (
